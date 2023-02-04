@@ -2,8 +2,8 @@
 {
     public enum Cell
     {
-        cellEmpty = ' ',
-        cellFilledO = 'O',
-        cellFilledX = 'X'
+        cellEmpty = ' ',  //0
+        cellFilledO = 'O',  //1
+        cellFilledX = 'X'  //2
     }
 }

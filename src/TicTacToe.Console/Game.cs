@@ -6,7 +6,7 @@ namespace TicTacToe {
         Player user = new Player();
         Player pc = new Player();
         Board board = new Board();
-        Cell cell = new Cell();
+        char flagTurn = ' ';
 
         public Game() {
             initGame();
@@ -23,26 +23,106 @@ namespace TicTacToe {
 
         }
 
-        private bool checkIfValidToken(char choice) {
+   
+       private void checkIfUserFirst() //Check if user wants to go first
+        {
+            bool correctOption;
+            do
+            {
+                WriteLine("Would you like to go first? (Y/N) ");
+                ConsoleKeyInfo keyRead = Console.ReadKey();
 
-            if (char.ToUpper(choice) != 'O' || char.ToUpper(choice) != 'X')
+                switch (keyRead.Key)
+                {
+                    case ConsoleKey.Y:
+                        WriteLine("\nUser has chosen to go first!");
+                        correctOption = true;
+                        flagTurn = user.getSymbol();
+                        break;
+                    case ConsoleKey.X:
+                        WriteLine("\nUser has chosen to go after System!");
+                        correctOption = true;
+                        flagTurn = pc.getSymbol();
+                        break;
+                    default:
+                        WriteLine("\nChoice is unavailable! Please try again.");
+                        correctOption = false;
+                        break;
+                }
+
+            } while (!correctOption);
+        }
+
+        private void userChooseSymbol()
+        {
+
+            bool correctOption;
+            do
             {
-                return false;
-            }
-            else
+                WriteLine("Would you like to play as 'X' or 'O'' ?");
+                ConsoleKeyInfo keyRead = Console.ReadKey();
+
+                switch (keyRead.Key)
+                {
+                    case ConsoleKey.O:
+                        WriteLine("\nUser has chosen 'O'");
+                        correctOption = true;
+                        user.setPlayerSymbol('O');
+                        pc.setPlayerSymbol('X');
+                        break;
+                    case ConsoleKey.X:
+                        WriteLine("\nUser has chosen 'X'");
+                        correctOption = true;
+                        user.setPlayerSymbol('X');
+                        pc.setPlayerSymbol('O');
+                        break;
+                    default:
+                        WriteLine("\nChoice is unavailable! Please try again.");
+                        correctOption = false;
+                        break;
+                }
+
+            } while (!correctOption);
+        }
+
+       /* private void exit() //Exit Program
+        {
+            Environment.Exit(1);
+        }
+       */
+
+        private void startUpCycle() 
+        {
+            userChooseSymbol();
+            checkIfUserFirst();
+          
+        }
+
+        private void gameMenu()
+        {
+
+
+          
+           
+            bool correctOption;
+            int keyEntered;
+            do
             {
-                return true;
-            }
+                WriteLine("Enter Coordinate to place token (1-9)");
+                keyEntered = Convert.ToInt32(ReadLine());
+                
+                correctOption =  board.checkIfCellAvailable(keyEntered, flagTurn);
+
+            } while (!correctOption);
         }
         
         public void startGame()
         {
             initGame();
-              
-      
-         
-            
-            
+            startUpCycle();
+            initGame();
+            gameMenu();
+            initGame();      
           }
               
         }

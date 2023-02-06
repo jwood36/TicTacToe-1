@@ -1,6 +1,7 @@
 ﻿using System;
 using static System.Console;
-namespace TicTacToe {
+namespace TicTacToe
+{
     public class Game
     {
         Player user = new Player();
@@ -8,7 +9,8 @@ namespace TicTacToe {
         Board board = new Board();
         char flagTurn = ' ';
 
-        public Game() {
+        public Game()
+        {
             initGame();
         }
 
@@ -20,11 +22,8 @@ namespace TicTacToe {
             WriteLine("\n\t\t\t\t\t User: {0} \t System: {1}", user.getSymbol(), pc.getSymbol());
             WriteLine("\n(¯`·._.·(¯`·._.·(¯`·._.·(¯`·._.· Tic Tac Toe ·._.·´¯)·._.·´¯)·._.·´¯)·._.·´¯)");
 
-
         }
-
-   
-       private void checkIfUserFirst() //Check if user wants to go first
+        private void checkIfUserFirst() //Check if user wants to go first
         {
             bool correctOption;
             do
@@ -85,47 +84,48 @@ namespace TicTacToe {
             } while (!correctOption);
         }
 
-       /* private void exit() //Exit Program
-        {
-            Environment.Exit(1);
-        }
-       */
 
-        private void startUpCycle() 
+
+        private void startUpCycle()
         {
             userChooseSymbol();
             checkIfUserFirst();
-          
         }
-
         private void gameMenu()
         {
 
-
-          
-           
             bool correctOption;
             int keyEntered;
             do
             {
+                WriteLine("-----------------------------------");
+
+                WriteLine("Enter '0' to exit game");
+
                 WriteLine("Enter Coordinate to place token (1-9)");
+
+                WriteLine("-----------------------------------");
+
                 keyEntered = Convert.ToInt32(ReadLine());
-                
-                correctOption =  board.checkIfCellAvailable(keyEntered, flagTurn);
+                if (keyEntered == 0)
+                {
+                    Environment.Exit(0);
+                }
+                correctOption = board.checkIfCellAvailable(keyEntered, flagTurn);
 
             } while (!correctOption);
         }
-        
+
         public void startGame()
         {
             initGame();
             startUpCycle();
             initGame();
             gameMenu();
-            initGame();      
-          }
-              
+            initGame();
         }
+
     }
+}
 
 

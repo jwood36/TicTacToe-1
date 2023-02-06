@@ -1,5 +1,4 @@
-﻿using System;
-using static System.Console;
+﻿using static System.Console;
 namespace TicTacToe
 {
     public class Board
@@ -19,7 +18,7 @@ namespace TicTacToe
                 board[i] = ' ';
             }
         }
-        public bool checkIfCellAvailable(int coordinate,char flag)
+        public bool checkIfCellAvailable(int coordinate, char flag)
         {
             if (board[coordinate] != ' ')
             {
@@ -28,19 +27,19 @@ namespace TicTacToe
             switch (coordinate)
             {
                 case 1:
-                    board[coordinate-1] = flag;
+                    board[coordinate - 1] = flag;
                     break;
                 case 2:
-                    board[coordinate-1] = flag;
+                    board[coordinate - 1] = flag;
                     break;
                 case 3:
-                    board[coordinate-1] = flag;
+                    board[coordinate - 1] = flag;
                     break;
                 case 4:
-                    board[coordinate-1] = flag;
+                    board[coordinate - 1] = flag;
                     break;
                 case 5:
-                    board[coordinate-1] = flag;
+                    board[coordinate - 1] = flag;
                     break;
                 case 6:
                     board[coordinate - 1] = flag;
@@ -57,9 +56,9 @@ namespace TicTacToe
                 default:
                     return false;
             }
-            return true;   
+            return true;
 
-        } 
+        }
 
         public void printBoard()
         {
@@ -71,7 +70,7 @@ namespace TicTacToe
             WriteLine("    \t\t\t\t {0} | {1} | {2} ", board[6], board[7], board[8]);
         }
 
-      
+
 
     }
 }

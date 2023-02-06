@@ -2,14 +2,11 @@
 {
     public class Player
     {
-
         char symbol;
-
         public Player()
         {
             symbol = ' ';
         }
-
         public void setPlayerSymbol(char playerSymbol)
         {
             symbol = playerSymbol;
@@ -18,7 +15,6 @@
         {
             return symbol;
         }
-
     }
 }
 

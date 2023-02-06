@@ -1,9 +1,12 @@
-﻿using System;
+﻿//
+
+using System;
 using static System.Console;
 namespace TicTacToe
 {
     public class Game
     {
+        //Declaring Instances//
         Player user = new Player();
         Player pc = new Player();
         Board board = new Board();
@@ -14,7 +17,7 @@ namespace TicTacToe
             initGame();
         }
 
-        private void initGame()
+        private void initGame() //Updates top of game screen 
         {
             Console.Clear();
             WriteLine("(¯`·._.·(¯`·._.·(¯`·._.·(¯`·._.· Tic Tac Toe ·._.·´¯)·._.·´¯)·._.·´¯)·._.·´¯)");
@@ -25,7 +28,7 @@ namespace TicTacToe
         }
         private void checkIfUserFirst() //Check if user wants to go first
         {
-            bool correctOption;
+            bool correctOption; //validates key against Y or N
             do
             {
                 WriteLine("Would you like to go first? (Y/N) ");
@@ -33,17 +36,17 @@ namespace TicTacToe
 
                 switch (keyRead.Key)
                 {
-                    case ConsoleKey.Y:
+                    case ConsoleKey.Y: // User chooses Y
                         WriteLine("\nUser has chosen to go first!");
                         correctOption = true;
                         flagTurn = user.getSymbol();
                         break;
-                    case ConsoleKey.X:
+                    case ConsoleKey.N: // User chooses N
                         WriteLine("\nUser has chosen to go after System!");
                         correctOption = true;
                         flagTurn = pc.getSymbol();
                         break;
-                    default:
+                    default: // User doesnt enter Y or N
                         WriteLine("\nChoice is unavailable! Please try again.");
                         correctOption = false;
                         break;
@@ -52,10 +55,10 @@ namespace TicTacToe
             } while (!correctOption);
         }
 
-        private void userChooseSymbol()
+        private void userChooseSymbol()  //Gets users symbol X or O
         {
 
-            bool correctOption;
+            bool correctOption; // Validates user input
             do
             {
                 WriteLine("Would you like to play as 'X' or 'O'' ?");
@@ -63,19 +66,19 @@ namespace TicTacToe
 
                 switch (keyRead.Key)
                 {
-                    case ConsoleKey.O:
+                    case ConsoleKey.O:  //user chooses O
                         WriteLine("\nUser has chosen 'O'");
                         correctOption = true;
                         user.setPlayerSymbol('O');
                         pc.setPlayerSymbol('X');
                         break;
-                    case ConsoleKey.X:
+                    case ConsoleKey.X: //User chooses X
                         WriteLine("\nUser has chosen 'X'");
                         correctOption = true;
                         user.setPlayerSymbol('X');
                         pc.setPlayerSymbol('O');
                         break;
-                    default:
+                    default: //User doesnt enter X or O
                         WriteLine("\nChoice is unavailable! Please try again.");
                         correctOption = false;
                         break;
@@ -85,13 +88,12 @@ namespace TicTacToe
         }
 
 
-
-        private void startUpCycle()
+        private void startUpCycle() //start up cycle
         {
             userChooseSymbol();
             checkIfUserFirst();
         }
-        private void gameMenu()
+        private void gameMenu() //game menu
         {
 
             bool correctOption;
@@ -112,17 +114,28 @@ namespace TicTacToe
                     Environment.Exit(0);
                 }
                 correctOption = board.checkIfCellAvailable(keyEntered, flagTurn);
-
             } while (!correctOption);
+        }
+
+        private void runCycle()
+        {
+            if(flagTurn == pc.getSymbol())
+            {
+                board.systemChoose(flagTurn);
+                initGame();
+            }
+            if(flagTurn == user.getSymbol())
+            {
+                gameMenu();
+                initGame();
+            }
         }
 
         public void startGame()
         {
             initGame();
             startUpCycle();
-            initGame();
-            gameMenu();
-            initGame();
+            runCycle();
         }
 
     }

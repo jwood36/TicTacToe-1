@@ -1,5 +1,5 @@
-﻿using static System.Console;
-using System;
+﻿using System;
+using static System.Console;
 namespace TicTacToe
 {
     public class Board
@@ -28,88 +28,80 @@ namespace TicTacToe
             }
             switch (coordinate)
             {
+                case 0:
+                    board[0] = flag;
+                    break;
                 case 1:
-                    board[coordinate - 1] = flag;
+                    board[1] = flag;
                     break;
                 case 2:
-                    board[coordinate - 1] = flag;
+                    board[2] = flag;
                     break;
                 case 3:
-                    board[coordinate - 1] = flag;
+                    board[3] = flag;
                     break;
                 case 4:
-                    board[coordinate - 1] = flag;
+                    board[4] = flag;
                     break;
                 case 5:
-                    board[coordinate - 1] = flag;
+                    board[5] = flag;
                     break;
                 case 6:
-                    board[coordinate - 1] = flag;
+                    board[6] = flag;
                     break;
                 case 7:
-                    board[coordinate - 1] = flag;
+                    board[7] = flag;
                     break;
                 case 8:
-                    board[coordinate - 1] = flag;
-                    break;
-                case 9:
-                    board[coordinate - 1] = flag;
+                    board[8] = flag;
                     break;
                 default:
                     return false;
             }
             return true;
-            
-        }
-       
 
-        public void systemChoose(char flag){
-            bool avail = false;
-            do
+        }
+
+        public void systemChoose(char flag)
+        {
+            int coordinate = rng.Next(8);
+            while (board[coordinate] != ' ')
             {
-                int coordinate = rng.Next(0, 8);
-                switch (coordinate)
-                {
-                    case 1:
-                        board[coordinate - 1] = flag;
-                        avail = true;
-                        break;
-                    case 2:
-                        board[coordinate - 1] = flag;
-                        avail = true;
-                        break;
-                    case 3:
-                        board[coordinate - 1] = flag;
-                        avail = true;
-                        break;
-                    case 4:
-                        board[coordinate - 1] = flag;
-                        avail = true;
-                        break;
-                    case 5:
-                        board[coordinate - 1] = flag;
-                        avail = true;
-                        break;
-                    case 6:
-                        board[coordinate - 1] = flag;
-                        avail = true;
-                        break;
-                    case 7:
-                        board[coordinate - 1] = flag;
-                        avail = true;
-                        break;
-                    case 8:
-                        board[coordinate - 1] = flag;
-                        break;
-                    case 9:
-                        board[coordinate - 1] = flag;
-                        avail = true;
-                        break;
-                    default:
-                        avail = false;
-                        break;
-                }
-            } while (!avail);
+                coordinate = rng.Next(9);
+            }
+            switch (coordinate)
+            {
+                case 0:
+                    board[0] = flag;
+                    break;
+                case 1:
+                    board[1] = flag;
+                    break;
+                case 2:
+                    board[2] = flag;
+                    break;
+                case 3:
+                    board[3] = flag;
+                    break;
+                case 4:
+                    board[4] = flag;
+                    break;
+                case 5:
+                    board[5] = flag;
+                    break;
+                case 6:
+                    board[6] = flag;
+                    break;
+                case 7:
+                    board[7] = flag;
+                    break;
+                case 8:
+                    board[8] = flag;
+                    break;
+                default:
+                    break;
+            }
+
         }
 
         public void printBoard()
@@ -122,7 +114,109 @@ namespace TicTacToe
             WriteLine("    \t\t\t\t {0} | {1} | {2} ", board[6], board[7], board[8]);
         }
 
-   
+        private bool checkWinHorizontal(char flag)
+        {
+
+            if (board[0] == flag && board[1] == flag && board[2] == flag) // first row is filled
+            {
+                return true;
+            }
+            if (board[3] == flag && board[4] == flag && board[5] == flag) // second row is filled
+            {
+                return true;
+            }
+            if (board[6] == flag && board[7] == flag && board[8] == flag) // third row is filled
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool checkWinVertical(char flag)
+        {
+
+            if (board[0] == flag && board[3] == flag && board[6] == flag) // first collumn is filled
+            {
+                return true;
+            }
+            if (board[1] == flag && board[4] == flag && board[7] == flag) // second collumn is filled
+            {
+                return true;
+            }
+            if (board[2] == flag && board[5] == flag && board[8] == flag) // third collumn is filled
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool checkWinDiagnol(char flag)
+        {
+
+            if (board[0] == flag && board[4] == flag && board[8] == flag) // top left to bottom right is filled
+            {
+                return true;
+            }
+            if (board[2] == flag && board[4] == flag && board[6] == flag) // top right to bottom left is filled
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool checkTie()
+        {
+            int count = 0;
+            for (int i = 0; i < board.Length; i++)
+            {
+                if (board[i] != ' ')
+                {
+                    count = count + 1;
+                }
+            }
+            if (count == 8)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        public bool endCondition(char flag)
+        {
+            if (checkWinVertical(flag) == true)
+            {
+                return true;
+            }
+            else if (checkWinHorizontal(flag) == true)
+            {
+                return true;
+            }
+            else if (checkWinDiagnol(flag) == true)
+            {
+                return true;
+            }
+            else if (checkTie() == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
     }
 }
 

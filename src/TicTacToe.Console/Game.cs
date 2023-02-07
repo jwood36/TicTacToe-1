@@ -17,7 +17,7 @@ namespace TicTacToe
             initGame();
         }
 
-        private void initGame() //Updates top of game screen 
+        private void initGame() //Updates game screen 
         {
             Console.Clear();
             WriteLine("(¯`·._.·(¯`·._.·(¯`·._.·(¯`·._.· Tic Tac Toe ·._.·´¯)·._.·´¯)·._.·´¯)·._.·´¯)");
@@ -113,29 +113,42 @@ namespace TicTacToe
                 {
                     Environment.Exit(0);
                 }
-                correctOption = board.checkIfCellAvailable(keyEntered, flagTurn);
+                correctOption = board.checkIfCellAvailable(keyEntered - 1, flagTurn);
             } while (!correctOption);
         }
 
-        private void runCycle()
+        private void RunCycle()
         {
-            if(flagTurn == pc.getSymbol())
+            do
             {
-                board.systemChoose(flagTurn);
-                initGame();
-            }
-            if(flagTurn == user.getSymbol())
-            {
-                gameMenu();
-                initGame();
-            }
+                if (flagTurn == pc.getSymbol())
+                {
+
+                    board.systemChoose(flagTurn);
+                    flagTurn = user.getSymbol();
+                    initGame();
+
+                }
+
+                if (flagTurn == user.getSymbol())
+                {
+                    initGame();
+                    gameMenu();
+                    flagTurn = pc.getSymbol();
+                }
+            }  while (!board.endCondition(flagTurn));
+
         }
 
-        public void startGame()
+    public void startGame()
         {
             initGame();
             startUpCycle();
-            runCycle();
+            RunCycle();
+            initGame();
+            
+          
+           
         }
 
     }

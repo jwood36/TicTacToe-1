@@ -6,6 +6,8 @@
         {
             Game game = new Game();
 
+            // Start Game
+
             game.startGame();
         }
 
